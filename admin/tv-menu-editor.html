@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Magno Sapori - Editor Menú TV</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="tv-menu-editor.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Josefin+Sans:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+  <!-- html2canvas for image export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+
+  <!-- ==================== LOGIN PAGE ==================== -->
+  <div id="loginPage" class="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="login-logo">☕</div>
+        <h1 class="login-title">Magno Sapori</h1>
+        <p class="login-subtitle">Editor Menú TV</p>
+      </div>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" id="email" class="form-input" placeholder="admin@magnosapori.com" required>
+        </div>
+        <div class="form-group">
+          <label for="password" class="form-label">Contraseña</label>
+          <input type="password" id="password" class="form-input" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn btn-primary" id="loginBtn">Iniciar Sesión</button>
+        <div id="loginError" class="error-message hidden"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== EDITOR PAGE ==================== -->
+  <div id="editorPage" class="hidden">
+    <header class="dashboard-header">
+      <div class="dashboard-title">
+        <span>☕</span>
+        <span>Magno Sapori</span>
+      </div>
+      <div class="dashboard-actions">
+        <a class='btn btn-secondary' href='/admin/' style='text-decoration:none;'>← Volver al Admin</a>
+        <span id="userEmail" style="color:#6b7280;font-size:13px;margin-right:8px;"></span>
+        <button class="btn btn-secondary" id="logoutBtn">Cerrar Sesión</button>
+      </div>
+    </header>
+
+    <main class="editor-layout">
+      <!-- LEFT: Controls -->
+      <aside class="editor-controls">
+        <h2 class="controls-title">Editor Menú TV</h2>
+
+        <!-- Header image (static, fixed) -->
+        <div class="control-section">
+          <h3>Imagen de cabecera</h3>
+          <p class="control-hint">Cabecera fija del logo (no editable).</p>
+          <div id="headerPreview" class="header-preview-box">
+            <img src="tv-header.png" alt="Header">
+          </div>
+        </div>
+
+        <!-- Footer text -->
+        <div class="control-section">
+          <h3>Texto pie de imagen</h3>
+          <input type="text" id="footerTextInput" class="form-input" placeholder="CONSULTÁ POR EL PLATO DEL DÍA">
+          <button class="btn btn-secondary btn-full" id="updateFooterBtn" style="margin-top:6px;">Actualizar pie</button>
+        </div>
+
+        <!-- Section management -->
+        <div class="control-section">
+          <h3>Secciones</h3>
+          <div id="sectionsList" class="sections-list"></div>
+          <button class="btn btn-primary btn-full" id="addSectionBtn">+ Agregar sección</button>
+        </div>
+
+        <!-- Export -->
+        <div class="control-section">
+          <h3>Exportar imagen</h3>
+          <div class="form-group" style="margin-bottom:8px;">
+            <label class="form-label">Resolución</label>
+            <select id="resolutionSelect" class="form-input">
+              <option value="720x1280">HD (720×1280)</option>
+              <option value="1080x1920" selected>Full HD (1080×1920)</option>
+              <option value="1440x2560">2K (1440×2560)</option>
+              <option value="2160x3840">4K (2160×3840)</option>
+              <option value="custom">Personalizado</option>
+            </select>
+          </div>
+          <div id="customResolution" class="custom-res hidden">
+            <input type="number" id="customWidth" class="form-input" placeholder="Ancho (px)" value="1080" min="100">
+            <span>×</span>
+            <input type="number" id="customHeight" class="form-input" placeholder="Alto (px)" value="1920" min="100">
+          </div>
+          <button class="btn btn-primary btn-full btn-export" id="exportBtn">
+            📥 Descargar Imagen PNG
+          </button>
+          <div id="exportProgress" class="export-progress hidden">
+            <div class="spinner-small"></div>
+            <span>Generando imagen...</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- RIGHT: Live preview (the actual menu canvas) -->
+      <div class="editor-preview-wrapper">
+        <div class="preview-label">Vista previa (hacé clic en cualquier texto para editarlo)</div>
+        <div id="tvCanvasContainer" class="tv-canvas-container">
+          <div id="tvCanvas" class="tv-canvas">
+            <!-- Header image (fixed) -->
+            <div id="tvHeader" class="tv-header">
+              <div class="tv-header-placeholder">
+                <span>📷</span>
+                <span>Subí la imagen de cabecera desde el panel izquierdo</span>
+              </div>
+            </div>
+
+            <!-- Editable sections (dynamic) -->
+            <div id="tvSections" class="tv-sections"></div>
+
+            <!-- Footer -->
+            <div class="tv-footer">
+              <div class="tv-footer-line"></div>
+              <div id="tvFooterText" class="tv-footer-text" contenteditable="true">CONSULTÁ POR EL PLATO DEL DÍA</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Toast Notifications -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="api-client.js"></script>
+  <script src="tv-menu-editor.js"></script>
+</body>
+</html>

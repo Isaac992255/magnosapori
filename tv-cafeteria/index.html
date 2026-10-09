@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Magno Sapori - Menú TV Cafetería</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <!-- html2canvas for image export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+
+  <!-- ==================== LOGIN PAGE ==================== -->
+  <div id="loginPage" class="login-container hidden">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="login-logo">☕</div>
+        <h1 class="login-title">Magno Sapori</h1>
+        <p class="login-subtitle">Menú TV Cafetería</p>
+      </div>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" id="email" class="form-input" placeholder="admin@magnosapori.com" required>
+        </div>
+        <div class="form-group">
+          <label for="password" class="form-label">Contraseña</label>
+          <input type="password" id="password" class="form-input" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn btn-primary" id="loginBtn">Iniciar Sesión</button>
+        <div id="loginError" class="error-message hidden"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== EDITOR PAGE ==================== -->
+  <div id="editorPage" class="hidden">
+    <header class="dashboard-header">
+      <div class="dashboard-title">
+        <span>☕</span>
+        <span>Menú TV Cafetería</span>
+      </div>
+      <div class="dashboard-actions">
+        <a href="/admin/" class="btn btn-secondary">← Volver al Admin</a>
+        <span id="userEmail" class="user-email"></span>
+        <button class="btn btn-secondary" id="logoutBtn">Cerrar Sesión</button>
+      </div>
+    </header>
+
+    <main class="editor-layout">
+      <!-- LEFT: Controls -->
+      <aside class="editor-controls">
+        <div class="control-section">
+          <h3>Cómo editar</h3>
+          <p class="control-hint">Hacé clic sobre cualquier nombre, detalle o precio de la vista previa y escribí. Enter confirma, Esc cancela.</p>
+          <p class="control-hint">Los precios se escriben como número (ej: <strong>5000</strong>) y se muestran como <strong>$ 5.000</strong>.</p>
+          <div id="saveStatus" class="save-status" data-state="idle">—</div>
+        </div>
+
+        <div class="control-section">
+          <h3>Descargar imagen</h3>
+          <div class="form-group">
+            <label for="resolutionSelect" class="form-label">Resolución</label>
+            <select id="resolutionSelect" class="form-input">
+              <option value="1080x1920" selected>Full HD (1080×1920)</option>
+              <option value="1440x2560">2K (1440×2560)</option>
+              <option value="2160x3840">4K (2160×3840)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="formatSelect" class="form-label">Formato</label>
+            <select id="formatSelect" class="form-input">
+              <option value="png" selected>PNG</option>
+              <option value="jpg">JPG (si la TV no lee PNG)</option>
+            </select>
+          </div>
+          <button class="btn btn-primary btn-export" id="exportBtn">📥 Descargar imagen</button>
+          <div id="exportProgress" class="export-progress hidden">
+            <div class="spinner-small"></div>
+            <span>Generando imagen...</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- RIGHT: Live preview (the actual 1080×1920 menu canvas) -->
+      <div class="editor-preview-wrapper">
+        <div class="preview-label">Vista previa (hacé clic en cualquier texto para editarlo)</div>
+        <div id="tvCanvasContainer" class="tv-canvas-container">
+          <div id="tvCanvas" class="tv-canvas">
+            <!-- Layer 0: designer's SVG (logo, cups, dividers) — loaded by editor.js -->
+            <div id="capaFondo" class="capa-fondo" aria-hidden="true"></div>
+
+            <!-- Layer 1: editable texts. Slots are fixed; positions live in styles.css -->
+            <div id="capaTextos" class="capa-textos">
+
+              <!-- ---- Cafetería con variantes (prices under each cup) ---- -->
+              <div class="slot slot-nombre" data-slot="americano">
+                <span class="campo nombre" contenteditable="true" spellcheck="false" data-item="americano" data-field="name" data-max="490"></span>
+              </div>
+              <div class="slot slot-taza" data-slot="americano-0"><span class="campo precio-taza" contenteditable="true" spellcheck="false" data-item="americano" data-field="prices.0" data-max="140"></span></div>
+              <div class="slot slot-taza" data-slot="americano-1"><span class="campo precio-taza" contenteditable="true" spellcheck="false" data-item="americano" data-field="prices.1" data-max="140"></span></div>
+              <div class="slot slot-taza" data-slot="americano-2"><span class="campo precio-taza" contenteditable="true" spellcheck="false" data-item="americano" data-field="prices.2" data-max="140"></span></div>
+
+              <div class="slot slot-nombre" data-slot="latte">
+                <span class="campo nombre" contenteditable="true" spellcheck="false" data-item="latte" data-field="name" data-max="490"></span>
+              </div>
+              <div class="slot slot-taza" data-slot="latte-0"><span class="campo precio-taza" contenteditable="true" spellcheck="false" data-item="latte" data-field="prices.0" data-max="140"></span></div>
+              <div class="slot slot-taza" data-slot="latte-1"><span class="campo precio-taza" contenteditable="true" spellcheck="false" data-item="latte" data-field="prices.1" data-max="140"></span></div>
+              <div class="slot slot-taza" data-slot="latte-2"><span class="campo precio-taza" contenteditable="true" spellcheck="false" data-item="latte" data-field="prices.2" data-max="140"></span></div>
+
+              <div class="slot slot-nombre" data-slot="flat-white">
+                <span class="campo nombre" contenteditable="true" spellcheck="false" data-item="flat-white" data-field="name" data-max="490"></span>
+              </div>
+              <div class="slot slot-taza" data-slot="flat-white-0"><span class="campo precio-taza" contenteditable="true" spellcheck="false" data-item="flat-white" data-field="prices.0" data-max="140"></span></div>
+
+              <!-- ---- Cafetería clásica (name + optional detail, price on the right) ---- -->
+              <div class="fila" data-slot="cappuccino">
+                <div class="fila-texto">
+                  <span class="campo nombre" contenteditable="true" spellcheck="false" data-item="cappuccino" data-field="name"></span>
+                  <span class="campo detalle" contenteditable="true" spellcheck="false" data-item="cappuccino" data-field="subtitle" data-placeholder="+ detalle (opcional)"></span>
+                </div>
+                <span class="campo precio" contenteditable="true" spellcheck="false" data-item="cappuccino" data-field="price"></span>
+              </div>
+
+              <div class="fila" data-slot="cappuccino-italiano">
+                <div class="fila-texto">
+                  <span class="campo nombre" contenteditable="true" spellcheck="false" data-item="cappuccino-italiano" data-field="name"></span>
+                  <span class="campo detalle" contenteditable="true" spellcheck="false" data-item="cappuccino-italiano" data-field="subtitle" data-placeholder="+ detalle (opcional)"></span>
+                </div>
+                <span class="campo precio" contenteditable="true" spellcheck="false" data-item="cappuccino-italiano" data-field="price"></span>
+              </div>
+
+              <div class="fila" data-slot="cafe-saborizado">
+                <div class="fila-texto">
+                  <span class="campo nombre" contenteditable="true" spellcheck="false" data-item="cafe-saborizado" data-field="name"></span>
+                  <span class="campo detalle" contenteditable="true" spellcheck="false" data-item="cafe-saborizado" data-field="subtitle" data-placeholder="+ detalle (opcional)"></span>
+                </div>
+                <span class="campo precio" contenteditable="true" spellcheck="false" data-item="cafe-saborizado" data-field="price"></span>
+              </div>
+
+              <div class="fila" data-slot="cafe-frio">
+                <div class="fila-texto">
+                  <span class="campo nombre" contenteditable="true" spellcheck="false" data-item="cafe-frio" data-field="name"></span>
+                  <span class="campo detalle" contenteditable="true" spellcheck="false" data-item="cafe-frio" data-field="subtitle" data-placeholder="+ detalle (opcional)"></span>
+                </div>
+                <span class="campo precio" contenteditable="true" spellcheck="false" data-item="cafe-frio" data-field="price"></span>
+              </div>
+
+              <!-- ---- Bebidas y frescos ---- -->
+              <div class="fila" data-slot="smoothies">
+                <div class="fila-texto">
+                  <span class="campo nombre" contenteditable="true" spellcheck="false" data-item="smoothies" data-field="name"></span>
+                </div>
+                <span class="campo precio" contenteditable="true" spellcheck="false" data-item="smoothies" data-field="price"></span>
+              </div>
+
+              <div class="fila" data-slot="limonada">
+                <div class="fila-texto">
+                  <span class="campo nombre" contenteditable="true" spellcheck="false" data-item="limonada" data-field="name"></span>
+                </div>
+                <span class="campo precio" contenteditable="true" spellcheck="false" data-item="limonada" data-field="price"></span>
+              </div>
+
+              <div class="fila" data-slot="yogurth">
+                <div class="fila-texto">
+                  <span class="campo nombre" contenteditable="true" spellcheck="false" data-item="yogurth" data-field="name"></span>
+                </div>
+                <span class="campo precio" contenteditable="true" spellcheck="false" data-item="yogurth" data-field="price"></span>
+              </div>
+
+              <div class="fila" data-slot="ensalada-frutas">
+                <div class="fila-texto">
+                  <span class="campo nombre" contenteditable="true" spellcheck="false" data-item="ensalada-frutas" data-field="name"></span>
+                </div>
+                <span class="campo precio" contenteditable="true" spellcheck="false" data-item="ensalada-frutas" data-field="price"></span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Toast Notifications -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="menu-cafeteria-data.js"></script>
+  <script src="api-client.js"></script>
+  <script src="editor.js"></script>
+</body>
+</html>

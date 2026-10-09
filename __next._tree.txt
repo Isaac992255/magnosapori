@@ -1,0 +1,12 @@
+1:"$Sreact.fragment"
+2:I[33482,["/_next/static/chunks/59fe3ae7cf2ce239.js","/_next/static/chunks/6ad2f4058d83be2f.js"],"ViewportBoundary"]
+4:I[33482,["/_next/static/chunks/59fe3ae7cf2ce239.js","/_next/static/chunks/6ad2f4058d83be2f.js"],"MetadataBoundary"]
+5:"$Sreact.suspense"
+7:I[51187,["/_next/static/chunks/59fe3ae7cf2ce239.js","/_next/static/chunks/6ad2f4058d83be2f.js"],"IconMark"]
+:HL["/_next/static/chunks/de8bc87e03c408fa.css","style"]
+:HL["/_next/static/chunks/2cdaa3b1d4693e9e.css","style"]
+:HL["/_next/static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/daa29454a3e61cb2-s.p.ae97aa8d.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+0:{"buildId":"6eFpQcUs-XIaIyYVaZ6o5","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":true},"head":["$","$1","h",{"children":[null,["$","$L2",null,{"children":"$@3"}],["$","div",null,{"hidden":true,"children":["$","$L4",null,{"children":["$","$5",null,{"name":"Next.Metadata","children":"$@6"}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"isHeadPartial":false,"staleTime":300}
+3:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+6:[["$","title","0",{"children":"Magno Sapori | Disfrutá cada momento"}],["$","meta","1",{"name":"description","content":"Un encantador café ubicado en el corazón de Buenos Aires. Ambiente sereno perfecto para disfrutar tiempo de calidad con familia y amigos."}],["$","meta","2",{"name":"keywords","content":"café, Buenos Aires, Suipacha, café de especialidad, ambiente acogedor, pastelería"}],["$","link","3",{"rel":"icon","href":"/images/logo.jpg"}],["$","link","4",{"rel":"apple-touch-icon","href":"/images/logo.jpg"}],["$","$L7","5",{}]]

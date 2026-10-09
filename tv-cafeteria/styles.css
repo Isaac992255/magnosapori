@@ -1,0 +1,527 @@
+/* ==================== MENÚ TV CAFETERÍA — ESTILOS ==================== */
+
+/* Variables de Color - Rangoon Green (#1c1c1a), same palette as the admin */
+:root {
+  --primary: #1c1c1a;
+  --primary-foreground: #fcfcfc;
+  --background: #f4f4f3;
+  --foreground: #1c1c1a;
+  --muted: #70706e;
+  --border: #e5e5e5;
+  --input: #e5e5e5;
+  --destructive: #dc2626;
+  --success: #22c55e;
+  --edit: #0066cc;
+
+  --font-ui: 'Inter', system-ui, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-ui);
+  background-color: var(--background);
+  color: var(--foreground);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ==================== LOGIN PAGE ==================== */
+
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 24px;
+}
+
+.login-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 40px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 10px 15px -3px rgba(25, 25, 25, 0.1), 0 4px 6px -2px rgba(25, 25, 25, 0.05);
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.login-logo {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.login-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.login-subtitle {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 9px 12px;
+  font-size: 14px;
+  font-family: var(--font-ui);
+  border: 1px solid var(--input);
+  border-radius: 6px;
+  background-color: white;
+  color: var(--foreground);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(25, 25, 25, 0.1);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 9px 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  width: 100%;
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.btn-primary:hover {
+  background-color: #333331;
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--primary-foreground);
+  border: 1px solid var(--primary-foreground);
+  padding: 7px 14px;
+}
+
+.btn-secondary:hover {
+  background-color: rgba(251, 251, 251, 0.1);
+}
+
+.error-message {
+  margin-top: 16px;
+  padding: 12px;
+  background-color: #fee;
+  border: 1px solid var(--destructive);
+  border-radius: 6px;
+  color: var(--destructive);
+  font-size: 14px;
+  text-align: center;
+}
+
+/* ==================== EDITOR LAYOUT ==================== */
+
+.dashboard-header {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  padding: 14px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.dashboard-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.dashboard-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.user-email {
+  color: #a3a3a1;
+  font-size: 13px;
+}
+
+.editor-layout {
+  display: flex;
+  gap: 24px;
+  padding: 24px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.editor-controls {
+  width: 300px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.control-section {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.control-section h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.control-hint {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.save-status {
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: #f4f4f3;
+  color: var(--muted);
+}
+
+.save-status[data-state="saved"] { color: #15803d; background: #f0fdf4; }
+.save-status[data-state="pending"],
+.save-status[data-state="saving"] { color: #a16207; background: #fefce8; }
+.save-status[data-state="error"],
+.save-status[data-state="auth"] { color: var(--destructive); background: #fef2f2; }
+
+.btn-export {
+  font-size: 15px;
+  padding: 12px;
+  margin-top: 4px;
+}
+
+.export-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.spinner-small {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.editor-preview-wrapper {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.preview-label {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.tv-canvas-container {
+  background: #2a2a2a;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  /* Sized by JS to the scaled canvas */
+}
+
+@media (max-width: 860px) {
+  .dashboard-header { padding: 12px 16px; }
+  .dashboard-actions { flex-wrap: wrap; gap: 8px; }
+  .user-email { display: none; }
+  .editor-layout { flex-direction: column; padding: 16px; }
+  .editor-controls { width: 100%; }
+}
+
+/* ==================== TOAST NOTIFICATIONS ==================== */
+
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.toast {
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  animation: toast-in 0.3s ease-out, toast-out 0.3s ease-in 2.7s;
+  animation-fill-mode: forwards;
+  display: flex;
+  gap: 8px;
+  max-width: 360px;
+}
+
+.toast-success { background-color: var(--success); }
+.toast-error { background-color: var(--destructive); }
+.toast-info { background-color: var(--primary); }
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes toast-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* ==================== TV CANVAS (1080×1920) ==================== */
+/*
+ * Rendered at the native export resolution and scaled down for the preview
+ * via a JS-applied transform. Everything inside uses px only: relative units
+ * are what broke html2canvas in the previous editor.
+ */
+.tv-canvas {
+  width: 1080px;
+  height: 1920px;
+  position: relative;
+  overflow: hidden;
+  background: #ffffff;
+  transform-origin: top left;
+  font-family: 'Inter', sans-serif;
+  color: #000000;
+}
+
+/* Layer 0: the designer's SVG. Its viewBox is 1043×1892, so "meet" leaves
+   ~11px of white on each side; all coordinates below are measured in this space. */
+.capa-fondo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1080px;
+  height: 1920px;
+  pointer-events: none;
+}
+
+.capa-fondo svg {
+  width: 1080px;
+  height: 1920px;
+  display: block;
+}
+
+/* Layer 1: editable texts */
+.capa-textos {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1080px;
+  height: 1920px;
+}
+
+/* ---- Text styles ---- */
+/* A slot's own font-size/line-height acts as the strut, so the baseline stays
+   put when fitText shrinks the field inside it. */
+.slot {
+  position: absolute;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.slot-nombre {
+  left: 72px;
+  font-size: 34px;
+}
+
+.slot-taza {
+  width: 140px;
+  text-align: center;
+  font-size: 30px;
+}
+
+.fila {
+  position: absolute;
+  left: 72px;
+  width: 904px;           /* right edge of prices at x = 976 */
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 40px;
+  line-height: 1;
+  white-space: nowrap;
+  font-size: 34px;
+}
+
+.fila-texto {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.campo {
+  display: inline-block;
+  line-height: 1;
+  color: #000000;
+  outline: 2px solid transparent;
+  outline-offset: 4px;
+  border-radius: 2px;
+  cursor: text;
+}
+
+.nombre {
+  font-size: 34px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.detalle {
+  font-size: 25px;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: 0.06em;
+  color: #444444;
+  margin-top: 19px;
+}
+
+.precio {
+  flex-shrink: 0;
+  font-size: 34px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+}
+
+.precio-taza {
+  font-size: 30px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+/* ---- Edit states (never exported) ---- */
+.campo:hover {
+  outline-color: rgba(0, 102, 204, 0.4);
+  background: rgba(0, 102, 204, 0.04);
+}
+
+.campo:focus {
+  outline-color: var(--edit);
+  background: rgba(0, 102, 204, 0.08);
+}
+
+.campo.desborda {
+  outline-color: var(--destructive);
+  background: rgba(220, 38, 38, 0.08);
+}
+
+.campo:empty::before {
+  content: attr(data-placeholder);
+  color: rgba(0, 102, 204, 0.45);
+}
+
+.exporting .campo {
+  outline-color: transparent;
+  background: none;
+  caret-color: transparent;
+}
+
+.exporting .campo:empty::before {
+  content: none;
+}
+
+/* ==================== COORDENADAS CALIBRADAS ==================== */
+/*
+ * Measured against the SVG rendered at 1080×1920. With line-height: 1 in
+ * Inter, top = cap top − 0.137 × font-size.
+ * Keep-out ink boxes (illustrations, also checked by test-export.js): cups
+ * 597–981 × 214–296, 598–983 × 411–490, 755–832 × 600–669; smoothie
+ * 915–987 × 1285–1403; dividers y 1353–1357 and 1882–1885; closing cup 977–1061 × 1798–1918.
+ * Vertical positions match the JPG mapped into SVG space; horizontals are
+ * normalized (single left margin, prices right-aligned at 976, cup prices centered).
+ */
+
+/* Cafetería con variantes: names */
+[data-slot="americano"]  { top: 255px; }
+[data-slot="latte"]      { top: 454px; }
+[data-slot="flat-white"] { top: 630px; }
+
+/* Prices under each cup: centered on the cup body (bbox center − 8px for the handle) */
+[data-slot="americano-0"]  { top: 307px; left: 560px; }
+[data-slot="americano-1"]  { top: 307px; left: 708px; }
+[data-slot="americano-2"]  { top: 307px; left: 850px; }
+[data-slot="latte-0"]      { top: 504px; left: 559px; }
+[data-slot="latte-1"]      { top: 504px; left: 711px; }
+[data-slot="latte-2"]      { top: 504px; left: 855px; }
+[data-slot="flat-white-0"] { top: 678px; left: 715px; }
+
+/* Cafetería clásica */
+[data-slot="cappuccino"]          { top: 786px; }
+[data-slot="cappuccino-italiano"] { top: 904px; }
+[data-slot="cafe-saborizado"]     { top: 1021px; }
+[data-slot="cafe-frio"]           { top: 1166px; }
+
+/* Bebidas y frescos */
+[data-slot="smoothies"]       { top: 1466px; }
+[data-slot="limonada"]        { top: 1555px; }
+[data-slot="yogurth"]         { top: 1645px; }
+[data-slot="ensalada-frutas"] { top: 1734px; }

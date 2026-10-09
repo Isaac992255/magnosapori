@@ -1,0 +1,626 @@
+/* ==================== TV MENU EDITOR STYLES ==================== */
+
+/* ---- Editor Layout ---- */
+.editor-layout {
+  display: flex;
+  gap: 24px;
+  padding: 24px;
+  max-width: 1600px;
+  margin: 0 auto;
+  min-height: calc(100vh - 70px);
+}
+
+.editor-controls {
+  width: 320px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.controls-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--foreground);
+  margin-bottom: 4px;
+}
+
+.control-section {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.control-section h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--foreground);
+}
+
+.control-hint {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.btn-full {
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* Header preview */
+.header-preview-box {
+  width: 100%;
+  aspect-ratio: 16/6;
+  background: #1a1a1a;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  font-size: 13px;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+
+.header-preview-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Sections list in controls */
+.sections-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.section-control-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  background: #f9f9f9;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.section-control-item .section-name-label {
+  flex: 1;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.section-control-item .section-item-count {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.section-control-item button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 2px 4px;
+  opacity: 0.5;
+  transition: opacity 0.15s;
+}
+
+.section-control-item button:hover {
+  opacity: 1;
+}
+
+/* Custom resolution */
+.custom-res {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.custom-res input {
+  width: 80px;
+}
+
+.custom-res span {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+/* Export */
+.btn-export {
+  font-size: 15px;
+  padding: 12px;
+  margin-top: 8px;
+}
+
+.export-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.spinner-small {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ---- Preview wrapper ---- */
+.editor-preview-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+.preview-label {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.tv-canvas-container {
+  background: #2a2a2a;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+  /* The container sizes itself to the scaled canvas */
+  display: inline-block;
+}
+
+/*
+ * THE TV CANVAS — rendered at ACTUAL export resolution (1080×1920 px).
+ * Scaled down in the preview via JS-applied transform.
+ * All font sizes are in px, designed for 1080px width.
+ */
+.tv-canvas {
+  width: 1080px;
+  height: 1920px;
+  background: #000000;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Josefin Sans', sans-serif;
+  transform-origin: top left;
+  /* Default preview scale — overridden by JS */
+}
+
+/* Header section (fixed image) */
+.tv-header {
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.tv-header img {
+  width: 100%;
+  max-height: 280px;
+  object-fit: contain;
+  object-position: left top;
+  display: block;
+}
+
+.tv-header-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 80px 40px;
+  color: #555;
+  font-size: 24px;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+}
+
+.tv-header-placeholder span:first-child {
+  font-size: 48px;
+}
+
+/* Editable sections area */
+.tv-sections {
+  flex: 1;
+  padding: 20px 80px 0 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* --- Section --- */
+.tv-section {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.tv-section:last-child {
+  margin-bottom: 0;
+}
+
+.tv-section:hover .tv-section-actions {
+  opacity: 1;
+}
+
+.tv-section-actions {
+  position: absolute;
+  top: 0;
+  right: -8px;
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 10;
+}
+
+.tv-section-actions button {
+  background: rgba(255,255,255,0.15);
+  border: none;
+  color: #fff;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+
+.tv-section-actions button:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+/* Section heading — e.g. WRAPS, TARTAS */
+.tv-section-heading-row {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.tv-section-heading-row .tv-section-name {
+  margin-bottom: 0;
+}
+
+.tv-section-heading-row .tv-section-subtitle {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.tv-section-name {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-weight: 400;
+  font-size: 68px;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  margin-bottom: 20px;
+  outline: none;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  padding: 2px 6px;
+  transition: border-color 0.2s;
+  cursor: text;
+  line-height: 1.15;
+}
+
+/* Large section heading — e.g. ENSALADAS */
+.tv-section-name-large {
+  font-size: 84px;
+  letter-spacing: 0.3em;
+  font-weight: 400;
+}
+
+.tv-section-name:hover {
+  border-color: rgba(255,255,255,0.25);
+}
+
+.tv-section-name:focus {
+  border-color: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.05);
+}
+
+/* Section subtitle */
+.tv-section-subtitle {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 28px;
+  color: #cccccc;
+  margin-top: -10px;
+  margin-bottom: 16px;
+  outline: none;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  padding: 2px 6px;
+  transition: border-color 0.2s;
+  cursor: text;
+}
+
+.tv-section-subtitle em,
+.tv-section-subtitle i {
+  font-style: italic;
+}
+
+.tv-section-subtitle:hover {
+  border-color: rgba(255,255,255,0.25);
+}
+
+.tv-section-subtitle:focus {
+  border-color: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.05);
+}
+
+/* ---- List layout (name left, price right) ---- */
+.tv-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.tv-item-row:hover .tv-item-actions {
+  opacity: 1;
+}
+
+.tv-item-actions {
+  position: absolute;
+  left: -45px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.tv-item-actions button {
+  background: rgba(255,0,0,0.4);
+  border: none;
+  color: #fff;
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tv-item-actions button:hover {
+  background: rgba(255,0,0,0.7);
+}
+
+.tv-item-name {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 300;
+  font-size: 42px;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  outline: none;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  padding: 2px 6px;
+  transition: border-color 0.2s;
+  cursor: text;
+  line-height: 1.25;
+}
+
+.tv-item-name:hover {
+  border-color: rgba(255,255,255,0.2);
+}
+
+.tv-item-name:focus {
+  border-color: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.05);
+}
+
+.tv-item-price {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 300;
+  font-size: 42px;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+  outline: none;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  padding: 2px 6px;
+  transition: border-color 0.2s;
+  cursor: text;
+  white-space: nowrap;
+  text-align: right;
+  flex-shrink: 0;
+  line-height: 1.25;
+}
+
+.tv-item-price:hover {
+  border-color: rgba(255,255,255,0.2);
+}
+
+.tv-item-price:focus {
+  border-color: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.05);
+}
+
+/* ---- Inline layout (items listed inline with shared price) ---- */
+.tv-inline-items {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 300;
+  font-size: 38px;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.tv-inline-item {
+  outline: none;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  padding: 0 4px;
+  transition: border-color 0.2s;
+  cursor: text;
+  display: inline;
+}
+
+.tv-inline-item:hover {
+  border-color: rgba(255,255,255,0.2);
+}
+
+.tv-inline-item:focus {
+  border-color: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.05);
+}
+
+.tv-inline-price {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 300;
+  font-size: 42px;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  float: right;
+  outline: none;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  padding: 0 4px;
+  transition: border-color 0.2s;
+  cursor: text;
+}
+
+.tv-inline-price:hover {
+  border-color: rgba(255,255,255,0.2);
+}
+
+.tv-inline-price:focus {
+  border-color: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.05);
+}
+
+.tv-inline-separator {
+  color: #cccccc;
+  margin: 0 4px;
+}
+
+.tv-inline-price-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 6px;
+}
+
+/* ---- Add item button (inside canvas) ---- */
+.tv-add-item-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 8px 0;
+  border: 2px dashed rgba(255,255,255,0.2);
+  border-radius: 6px;
+  background: transparent;
+  color: rgba(255,255,255,0.4);
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: all 0.15s;
+}
+
+.tv-section:hover .tv-add-item-btn {
+  display: flex;
+}
+
+.tv-add-item-btn:hover {
+  border-color: rgba(255,255,255,0.4);
+  color: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.05);
+}
+
+/* ---- Footer ---- */
+.tv-footer {
+  padding: 25px 80px 30px;
+  flex-shrink: 0;
+  margin-top: auto;
+}
+
+.tv-footer-line {
+  border-top: 2px solid rgba(255,255,255,0.3);
+  margin-bottom: 20px;
+}
+
+.tv-footer-text {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 400;
+  font-size: 38px;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  text-align: center;
+  outline: none;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  padding: 4px 8px;
+  transition: border-color 0.2s;
+  cursor: text;
+}
+
+.tv-footer-text:hover {
+  border-color: rgba(255,255,255,0.25);
+}
+
+.tv-footer-text:focus {
+  border-color: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.05);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+  .editor-layout {
+    flex-direction: column;
+  }
+  .editor-controls {
+    width: 100%;
+  }
+}
+
+/* ---- Hide edit affordances when exporting ---- */
+.tv-canvas.exporting [contenteditable] {
+  border-color: transparent !important;
+  background: transparent !important;
+}
+
+.tv-canvas.exporting .tv-section-actions,
+.tv-canvas.exporting .tv-item-actions,
+.tv-canvas.exporting .tv-add-item-btn {
+  display: none !important;
+  opacity: 0 !important;
+}
+
+/* Also hide the preview label during export screenshot */
+.tv-canvas.exporting + .preview-label,
+.exporting-mode .preview-label {
+  display: none !important;
+}
