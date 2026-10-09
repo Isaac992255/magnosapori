@@ -495,7 +495,9 @@ body {
  * Inter, top = cap top − 0.137 × font-size.
  * Keep-out ink boxes (illustrations, also checked by test-export.js): cups
  * 597–981 × 214–296, 598–983 × 411–490, 755–832 × 600–669; smoothie
- * 915–987 × 1285–1403; dividers y 1353–1357 and 1882–1885; closing cup 977–1061 × 1798–1918.
+ * 915–987 × 1285–1403; dividers y 1353–1357 and 1864–1865; closing cup 982–1053 × 1792–1893.
+ * The closing cup and its divider are moved by `transform` attributes inside the
+ * SVG (not CSS): html2canvas serializes the SVG, so stylesheet rules never reach the export.
  * Vertical positions match the JPG mapped into SVG space; horizontals are
  * normalized (single left margin, prices right-aligned at 976, cup prices centered).
  */
